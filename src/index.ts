@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { db } from "./firebase_connection";
+import { db } from "./utils/firebase_connection";
 
 const PORT = 3030;
 const app = express();
@@ -104,14 +104,16 @@ app.get('/residents', async (req: Request, res: Response) => {
 app.post('/residents/create', async (req: Request, res: Response) => {
     const {name, 
         email, 
+        phone,
         password,
-        number_house} = req.body;
+        id_house} = req.body;
 
     const resident = {
         name, 
         email, 
+        phone,
         password, 
-        number_house,
+        id_house,
         category: Number(2)
     };
 
@@ -139,14 +141,16 @@ app.put('/residents/update/:id', async (req: Request, res: Response) => {
 
     const {name, 
         email, 
+        phone,
         password, 
-        number_house} = req.body;
+        id_house} = req.body;
 
     const resident = {
         name, 
         email, 
+        phone,
         password, 
-        number_house
+        id_house
     };
 
     try {
@@ -190,13 +194,17 @@ app.get('/employees', async (req: Request, res: Response) => {
 app.post('/employees/create', async (req: Request, res: Response) => {
     const {name, 
         email, 
-        password} = req.body;
+        phone,
+        password,
+        category
+    } = req.body;
 
     const employee = {
         name, 
         email, 
+        phone,
         password, 
-        category: Number(1)
+        category: Number(category)
     };
 
     const result = await db.collection('users').add(employee);
@@ -223,11 +231,13 @@ app.put('/employees/update/:id', async (req: Request, res: Response) => {
 
     const {name, 
         email, 
+        phone,
         password} = req.body;
 
     const employee = {
         name, 
         email, 
+        phone,
         password
     };
 
@@ -258,10 +268,24 @@ app.delete('/employees/delete/:id', async (req: Request, res: Response) => {
 app.get('/deliveries/accepted', async (req: Request, res: Response) => {
     const deliveriesRef = db.collection('deliveries');
     const deliveriesDoc = await deliveriesRef.where('accepted', '==', true).get();
+
     const deliveries: any = [];
+    const _deliveries: any = [];
+
     deliveriesDoc.forEach(doc => deliveries.push({id: doc.id,...doc.data()}));
 
-    return res.status(200).json(deliveries);
+    deliveries.forEach(doc => _deliveries.push({
+        id: doc.id, 
+        description: doc.description,
+        sender: doc.sender,
+        id_resident: doc.id_resident,
+        id_employee: doc.id_employee,
+        date_condo_reception: doc.date_condo_reception, // number
+        accepted: doc.accepted, 
+        date_accepted: doc.date_accepted,
+    }));
+
+    return res.status(200).json(_deliveries);
 });
 
 
@@ -303,8 +327,30 @@ app.get('/deliveries/resident/:id', async (req: Request, res: Response) => {
 });
 
 
+// Obter uma Entrega
 app.get('/deliveries/:id', async (req: Request, res: Response) => {
-    
+    const {id} = req.params;
+    // date_accepted: delivery.data().date_accepted.toDate().toLocaleString()
+    // /deliveries/resident/:idResident/:idDelivery --> Nome da rota?
+
+    try {
+        const delivery = await db.collection('deliveries').doc(id).get();
+        return res.status(200).json(
+            {
+                id: delivery.id, 
+                date_accepted: delivery.data()
+                    .date_accepted.toDate()
+                    .toLocaleString(),
+                date_condo_reception: delivery.data()
+                    .date_condo_reception.toDate()
+                    .toLocaleString(),
+                ...delivery.data(),
+            }
+        );
+    } 
+    catch (e) {
+        return res.status(404).json({message: "O id informado não existe!"});
+    }
 });
 
 
@@ -313,6 +359,7 @@ app.post('/deliveries/create', async (req: Request, res: Response) => {
         sender, 
         id_resident,
         id_employee,
+        accepted,
         date_condo_reception,
         date_accepted
     } = req.body;
@@ -322,9 +369,9 @@ app.post('/deliveries/create', async (req: Request, res: Response) => {
         sender, 
         id_resident,
         id_employee,
+        accepted, 
         date_condo_reception,
         date_accepted, 
-        category: Number(1)
     };
 
     const result = await db.collection('deliveries').add(delivery);
@@ -339,7 +386,15 @@ app.put('/deliveries/update/:id', async (req: Request, res: Response) => {
 
 
 app.delete('/deliveries/delete/:id', async (req: Request, res: Response) => {
+    const {id} = req.params;
     
+    try {
+        const result = await db.collection('deliveries').doc(id).delete();
+        return res.status(200).json({...result});
+    } 
+    catch (e) {
+        return res.status(404).json({message: "O id informado não existe!"});
+    }
 });
 
 
