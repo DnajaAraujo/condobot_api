@@ -326,6 +326,16 @@ app.get('/deliveries/resident/:id', async (req: Request, res: Response) => {
     return res.status(200).json(deliveries);
 });
 
+// Obter Todas as Entregas
+app.get('/deliveries', async (req: Request, res: Response) => {
+    const deliveriesRef = db.collection('deliveries');
+    const deliveriesDoc = await deliveriesRef.get();
+    const deliveries: any = [];
+    deliveriesDoc.forEach(doc => deliveries.push({id: doc.id, ...doc.data()}));
+
+    return res.status(200).json(deliveries);
+});
+
 
 // Obter uma Entrega
 app.get('/deliveries/:id', async (req: Request, res: Response) => {
