@@ -1,20 +1,21 @@
 import express from "express";
-// import { GetAllHouses, GetHouse, UpdateHouse, DeleteHouse } from "./../controllers/House";
-
 const router = express.Router();
 
-const routeBase = '/deliveries';
-
-// TO DO
-//      OBTER ENTREGAS ACEITAS
-//      
-// 
-
-router.get(routeBase);
-router.get(routeBase + '/:id');
-router.post(routeBase + '/create');
-router.put(routeBase + '/update/:id');
-router.delete(routeBase + '/delete/:id');
+import { 
+    GetAllDeliveries, 
+    GetAllAcceptedDeliveries, 
+    GetDelivery, 
+    CreateDelivery, 
+    UpdateDelivery,
+    DeleteDelivery } from "../controllers/DeliveryController";
 
 
-export { router as DeliveryRouter } ;
+router.get('', GetAllDeliveries);
+router.get('/accepted', GetAllAcceptedDeliveries);
+router.get('/:id', GetDelivery);
+router.post('/create', CreateDelivery);
+router.put('/update/:id', UpdateDelivery);
+router.delete('/delete/:id', DeleteDelivery);
+
+
+export { router as DeliveryRouter };

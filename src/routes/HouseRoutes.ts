@@ -1,15 +1,19 @@
 import express from "express";
-import { GetAllHouses, GetHouse, UpdateHouse, DeleteHouse } from "./../controllers/HouseController";
-
 const router = express.Router();
 
-const routeBase = '/houses';
+import { 
+    GetAllHouses, 
+    GetHouse, 
+    CreateHouse,
+    UpdateHouse, 
+    DeleteHouse } from "./../controllers/HouseController";
 
-router.get(routeBase, GetAllHouses);
-router.get(routeBase + '/:id',);
-router.post(routeBase + '/create',);
-router.put(routeBase + '/update/:id',);
-router.delete(routeBase + '/delete/:id',);
+
+router.get('/', GetAllHouses);
+router.get('/:id', GetHouse);
+router.post('/create', CreateHouse);
+router.put('/update/:id', UpdateHouse);
+router.delete('/delete/:id', DeleteHouse);
 
 
-export { router as HouseRouter } ;
+export { router as HouseRouter };

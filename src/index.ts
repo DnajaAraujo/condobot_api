@@ -391,7 +391,33 @@ app.post('/deliveries/create', async (req: Request, res: Response) => {
 
 
 app.put('/deliveries/update/:id', async (req: Request, res: Response) => {
-    
+    const {id} = req.params;
+
+    const {description, 
+        sender, 
+        id_resident,
+        id_employee,
+        accepted,
+        date_condo_reception,
+        date_accepted
+    } = req.body;
+
+    const delivery = {
+        description, 
+        sender, 
+        id_resident,
+        id_employee,
+        accepted, 
+        date_condo_reception,
+        date_accepted, 
+    };
+
+    try {
+        const result = await db.collection('deliveries').doc(id).update(delivery);
+        return res.status(200).json({...result});
+    } catch(e) {
+        return res.status(404).json({error: `${e}`});
+    }
 });
 
 
