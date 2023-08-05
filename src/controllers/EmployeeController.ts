@@ -46,7 +46,7 @@ export const CreateEmployee = async (req: Request, res: Response) => {
         return res.status(201).json(result);
     } 
     catch (e) {
-        return res.status(404).json();
+        return res.status(400).json();
     }
 }
 
@@ -66,7 +66,7 @@ export const UpdateEmployee = (req: Request, res: Response) => {
         return res.status(200).json(result);
     } 
     catch (e) {
-        return res.status(404).json();
+        return res.status(400).json();
     }
 }
 
