@@ -6,7 +6,7 @@ API destinada ao aplicativo Condobot.
 
 ## Base URL
 A URL base para todas as solicitações de API é:
-```http
+```
 https://condobot-api.onrender.com
 ```
 
@@ -90,7 +90,7 @@ Retorna o funcionário que possui o `id` informado.
 ---
 
 
-```
+```http
 POST /employees/create
 ```
 Cria um novo funcionário.
@@ -119,7 +119,7 @@ Cria um novo funcionário.
 ---
 
 
-```
+```http
 PUT /employees/update/id
 ```
 Atualiza o funcionário que possui o `id` informado.
@@ -148,7 +148,7 @@ Atualiza o funcionário que possui o `id` informado.
 ---
 
 
-```
+```http
 DELETE /employees/delete/id
 ```
 Deleta o funcionário que possui o `id` informado.
@@ -252,7 +252,7 @@ Retorna o morador que possui o `id` informado.
 ---
 
 
-```
+```http
 POST /residents/create
 ```
 Cria um novo morador.
@@ -285,7 +285,7 @@ Cria um novo morador.
 ---
 
 
-```
+```http
 PUT /residents/update/id
 ```
 Atualiza o morador que possui o `id` informado.
@@ -315,7 +315,7 @@ Atualiza o morador que possui o `id` informado.
 ---
 
 
-```
+```http
 DELETE /residents/delete/id
 ```
 Deleta o morador que possui o `id` informado.
@@ -411,7 +411,7 @@ Retorna a casa que possui o `id` informado.
 ---
 
 
-```
+```http
 POST /houses/create
 ```
 Cria uma nova casa.
@@ -442,7 +442,7 @@ Cria uma nova casa.
 ---
 
 
-```
+```http
 PUT /houses/update/id
 ```
 Atualiza a casa que possui o `id` informado.
@@ -471,7 +471,7 @@ Atualiza a casa que possui o `id` informado.
 ---
 
 
-```
+```http
 DELETE /houses/delete/id
 ```
 Deleta a casa que possui o `id` informado.
@@ -618,7 +618,7 @@ Retorna a entrega que possui o `id` informado.
 ---
 
 
-```
+```http
 POST /deliveries/create
 ```
 Cria uma nova entrega.
@@ -652,7 +652,7 @@ Cria uma nova entrega.
 ---
 
 
-```
+```http
 PUT /deliveries/update/id
 ```
 Atualiza a entrega que possui o `id` informado.
@@ -684,7 +684,7 @@ Atualiza a entrega que possui o `id` informado.
 ---
 
 
-```
+```http
 DELETE /deliveries/delete/id
 ```
 Deleta a entrega que possui o `id` informado.
