@@ -21,7 +21,7 @@ app.use('/houses', houseRoute);
 app.use('/deliveries', deliveryRoute);
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log(`Server running on port ${PORT}...`);
 });
 
