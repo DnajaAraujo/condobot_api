@@ -19,7 +19,7 @@ export const QueryHouseById = async (id: string) => {
 
 export const CreateNewHouse = async (house: any) => {
     const result = await db.collection('houses').add(house);
-    return result;
+    return {id: result.id};
 }
 
 

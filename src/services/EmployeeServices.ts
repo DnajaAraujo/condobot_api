@@ -19,7 +19,7 @@ export const QueryEmployeeById = async (id: string) => {
 
 export const CreateNewEmployee = async (employee: any) => {
     const result = await db.collection('users').add(employee);
-    return result.id;
+    return {id: result.id};
 }
 
 

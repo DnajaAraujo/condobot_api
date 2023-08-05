@@ -60,7 +60,7 @@ export const CreateDelivery = async (req: Request, res: Response) => {
         return res.status(201).json(result);
     } 
     catch (e) {
-        return res.status(404).json();
+        return res.status(400).json();
     }
 }
 
@@ -80,10 +80,10 @@ export const UpdateDelivery = (req: Request, res: Response) => {
 
     try {
         const result = UpdateDeliveryById(id, delivery);
-        return res.status(200).json(result);
+        return res.status(200).json();
     } 
     catch (e) {
-        return res.status(404).json();
+        return res.status(400).json();
     }
 }
 
@@ -93,7 +93,7 @@ export const DeleteDelivery = (req: Request, res: Response) => {
 
     try {
         const result = DeleteDeliveryById(id);
-        return res.status(200).json(result);
+        return res.status(200).json();
     } 
     catch (e) {
         return res.status(404).json();

@@ -43,7 +43,7 @@ export const QueryDeliveryById = async (id: string) => {
 
 export const CreateNewDelivery = async (delivery: any) => {
     const result = await db.collection('deliveries').add(delivery);
-    return result;
+    return {id: result.id};
 }
 
 

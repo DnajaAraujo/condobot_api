@@ -63,7 +63,7 @@ export const UpdateEmployee = (req: Request, res: Response) => {
 
     try {
         const result = UpdateEmployeeById(id, employee);
-        return res.status(200).json(result);
+        return res.status(200).json();
     } 
     catch (e) {
         return res.status(400).json();
@@ -76,7 +76,7 @@ export const DeleteEmployee = (req: Request, res: Response) => {
 
     try {
         const result = DeleteEmployeeById(id);
-        return res.status(200).json(result);
+        return res.status(200).json();
     } 
     catch (e) {
         return res.status(404).json();

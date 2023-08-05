@@ -45,7 +45,7 @@ export const CreateHouse = async (req: Request, res: Response) => {
         return res.status(201).json(result);
     } 
     catch(e) {
-        return res.status(404).json();
+        return res.status(400).json();
     }
 }
 
@@ -62,10 +62,10 @@ export const UpdateHouse = async (req: Request, res: Response) => {
 
     try {
         const result = await UpdateHouseById(id, house);
-        return res.status(200).json(result);
+        return res.status(200).json();
     } 
     catch (e) {
-        return res.status(404).json();
+        return res.status(400).json();
     }
 }
 
@@ -75,7 +75,7 @@ export const DeleteHouse = async (req: Request, res: Response) => {
 
     try {
         const result = await DeleteHouseById(id);
-        return res.status(200).json(result);
+        return res.status(200).json();
     } 
     catch (e) {
         return res.status(404).json();

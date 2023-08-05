@@ -19,7 +19,7 @@ export const QueryResidentById = async (id: string) => {
 
 export const CreateNewResident = async (resident: any) => {
     const result = await db.collection('users').add(resident);
-    return result;
+    return {id: result.id};
 }
 
 
